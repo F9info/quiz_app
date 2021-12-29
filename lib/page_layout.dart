@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/home_page.dart';
+import 'package:quiz_app/navigation.dart';
 
 class PageLayout extends StatefulWidget {
-  const PageLayout({Key? key, required this.child, required this.pageAppBar}) : super(key: key);
+   PageLayout({Key? key, required this.child, required this.pageAppBar}) : super(key: key);
   final Widget child;
+  
+  // ignore: prefer_typing_uninitialized_variables
   final pageAppBar;
 
   @override
@@ -11,9 +14,12 @@ class PageLayout extends StatefulWidget {
 }
 
 class _PageLayoutState extends State<PageLayout> {
+   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: NavigationMenu(),
+              key: _scaffoldKey,
       backgroundColor: Colors.white,
       appBar: widget.pageAppBar,
       body: SafeArea(
@@ -28,6 +34,7 @@ class _PageLayoutState extends State<PageLayout> {
         onPressed: (){
           Navigator.pushAndRemoveUntil(
             context,
+            // ignore: prefer_const_constructors
             MaterialPageRoute(builder: (context) => HomePage()),
                 (Route<dynamic> route) => false,
           );
